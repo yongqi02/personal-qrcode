@@ -11,20 +11,20 @@ import QRCode from '@/lib/qrcode.js';
 export function generate(text: string) {
 
   const options = {
-    render		: "canvas",
+    render		: 'canvas',
     width		: 256,
     height		: 256,
     typeNumber	: -1,
     correctLevel	: 2,
-    background      : "#ffffff",
-    foreground      : "#000000",
+    background      : '#ffffff',
+    foreground      : '#000000',
     text: text
-  }
+  };
 
-  const qrcode = new QRCode(options.typeNumber, options.correctLevel)
+  const qrcode = new QRCode(options.typeNumber, options.correctLevel);
 
-  qrcode.addData(options.text)
-  qrcode.make()
+  qrcode.addData(options.text);
+  qrcode.make();
 
   return qrcode;
 }

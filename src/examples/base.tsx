@@ -4,31 +4,37 @@
  * @path src/utils/render
  */
 
-function listPoint(qrcode: any) {
-  if (!qrcode) return []
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+function listPoint(qrcode) {
+  if (!qrcode) return [];
 
   const nCount = qrcode.getModuleCount();
-  console.log(`nCount:${nCount}`)
+  console.log(`nCount:${nCount}`);
   const pointList = new Array(nCount);
   let id = 0;
   for (let row = 0; row < nCount; row++) {
     for (let col = 0; col < nCount; col++) {
       if (qrcode.isDark(row, col))
-        pointList.push(<use key={id++} fill="green" x={row} y={col} href="#simpleRect"/>)
+        pointList.push(<use key={id++} fill="green" x={row} y={col} href="#simpleRect"/>);
     }
   }
   console.log(pointList);
   return pointList;
 }
 
-function calViewBox(qrcode: any) {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+function calViewBox(qrcode) {
   if (!qrcode) return '0 0 0 0';
 
   const nCount = qrcode.getModuleCount();
   return '0 0 ' + String(nCount) + ' ' + String(nCount);
 }
 
-const Base = (props: {qrcode: any}) => {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const Base = (props: {qrcode}) => {
   return (
     <svg className="Qr-item-svg" width="100%" height="100%" viewBox={calViewBox(props.qrcode)} fill="white"
          xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -36,7 +42,7 @@ const Base = (props: {qrcode: any}) => {
       {/*<circle fill="green" r={0.5} id="simpleCircle"/>*/}
       {listPoint(props.qrcode)}
     </svg>
-  )
-}
+  );
+};
 
-export default Base
+export default Base;

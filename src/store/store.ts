@@ -4,15 +4,13 @@
  * @path src/store
  */
 
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
 
-import counterSlice from "@/store/reducer.ts";
-
-
+import counterSlice from '@/store/reducer.ts';
 
 const store = configureStore({
   reducer: counterSlice.reducer
-})
+});
 
 export default store;
 

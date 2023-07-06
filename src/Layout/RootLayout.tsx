@@ -3,17 +3,19 @@
  * @create 2023/7/6 15:50
  * @path src/Layout
  */
-import React from "react";
-import styles from './index.module.less';
+import React from 'react';
+import {Layout} from 'antd';
 
 const Index = (props: {
   children: React.ReactNode
 }) => {
   return (
-    <div className={styles.container}>
+    <Layout style={{
+      maxWidth: 1440
+    }}>
       {props.children}
-    </div>
+    </Layout>
   );
-}
+};
 
 export default Index;
