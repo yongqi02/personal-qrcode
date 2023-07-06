@@ -14,7 +14,7 @@ function listPoint(qrcode: any) {
   for (let row = 0; row < nCount; row++) {
     for (let col = 0; col < nCount; col++) {
       if (qrcode.isDark(row, col))
-        pointList.push(<use key={id++} fill="green" x={row} y={col} href="#simpleCircle"/>)
+        pointList.push(<use key={id++} fill="green" x={row} y={col} href="#simpleRect"/>)
     }
   }
   console.log(pointList);
