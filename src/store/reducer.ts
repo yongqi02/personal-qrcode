@@ -16,7 +16,8 @@ const counterSlice = createSlice({
       url: 'www.baidu.com',
       format: 'svg'
     },
-    matrix: {}
+    matrix: {},
+    img: ''
   },
   reducers: {
     updateInfo: (state, action: PayloadAction<{
@@ -31,6 +32,9 @@ const counterSlice = createSlice({
     },
     updateMatrix: (state, action: PayloadAction<object>) => {
       state.matrix = action.payload;
+    },
+    updateImg: (state, action: PayloadAction<string>) => {
+      state.img = action.payload;
     }
   }
 });

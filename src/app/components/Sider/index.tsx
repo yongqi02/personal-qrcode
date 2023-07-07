@@ -8,13 +8,13 @@
 import React, {useState} from 'react';
 import {Button, Form, Image, Input, Layout, Select} from 'antd';
 
-import {updateInfo} from '@/api/update';
-import {makeImg, makeMatrix} from '@/api/make';
+import {updateImg, updateInfo} from '@/api/update';
+import {makeMatrix} from '@/api/make';
 import {downloadSVG} from '@/api/download';
 
 import INFO from '@/constant/INFO.ts';
 import {RENDER_TYPE} from '@/constant/TYPE.ts';
-import store from "@/store/store.ts";
+import store from '@/store/store.ts';
 
 const contentStyle: React.CSSProperties = {
   textAlign: 'center',
@@ -44,15 +44,15 @@ const buttonLayout = {
 };
 
 makeMatrix();
+updateImg();
 
 const Index = () => {
 
   const [form] = Form.useForm();
-  const [img, setImg] = useState(makeImg(RENDER_TYPE.Base));
+  const [img, setImg] = useState(store.getState().img);
 
   store.subscribe(() => {
-    makeMatrix();
-    setImg(makeImg(RENDER_TYPE.Base));
+    setImg(store.getState().img);
   });
 
   const onFinish = (values: {
@@ -74,7 +74,7 @@ const Index = () => {
   }) => {
     updateInfo(allValues);
     makeMatrix();
-    setImg(makeImg(RENDER_TYPE.Base));
+    updateImg();
   };
 
 
