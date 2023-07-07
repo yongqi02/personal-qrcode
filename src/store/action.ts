@@ -5,4 +5,7 @@
  */
 import counterSlice from '@/store/reducer.ts';
 
-export const { incremented, decremented } = counterSlice.actions;
+export const {
+  updateInfo,
+  updateMatrix
+} = counterSlice.actions;

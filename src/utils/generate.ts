@@ -8,7 +8,7 @@
 // @ts-ignore
 import QRCode from '@/lib/qrcode.js';
 
-export function generate(text: string) {
+export function getMatrix(url: string) {
 
   const options = {
     render		: 'canvas',
@@ -18,14 +18,14 @@ export function generate(text: string) {
     correctLevel	: 2,
     background      : '#ffffff',
     foreground      : '#000000',
-    text: text
+    url: url
   };
 
-  const qrcode = new QRCode(options.typeNumber, options.correctLevel);
+  const matrix = new QRCode(options.typeNumber, options.correctLevel);
 
-  qrcode.addData(options.text);
-  qrcode.make();
+  matrix.addData(options.url);
+  matrix.make();
 
-  return qrcode;
+  return matrix;
 }
 

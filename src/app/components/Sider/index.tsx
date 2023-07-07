@@ -10,6 +10,12 @@ import React from 'react';
 import { Button, Form, Input, Select } from 'antd';
 import { Image } from 'antd';
 import svg from '@/assets/images/default.svg';
+import store from '@/store/store.ts';
+import { updateInfo, updateMatrix } from '@/store/action.ts';
+import {getMatrix} from '@/utils/generate.ts';
+import base from '@/render/base.tsx';
+import {save} from '@/utils/download.ts';
+import ReactDOMServer from 'react-dom/server';
 
 
 const contentStyle: React.CSSProperties = {
@@ -43,9 +49,17 @@ const Index = () => {
 
   const [form] = Form.useForm();
 
-  const onFinish = (values: unknown) => {
-    console.log(values);
+  const onFinish = (values: {
+    filename: string,
+    url: string,
+    format: string
+  }) => {
+    store.dispatch(updateInfo(values));
+    store.dispatch(updateMatrix(getMatrix(store.getState().info.url)));
+    const el = React.createElement(base, {matrix: store.getState().matrix});
+    save(store.getState().info.filename, ReactDOMServer.renderToString(el));
   };
+
 
   return (
     <>
@@ -62,7 +76,7 @@ const Index = () => {
             onFinish={onFinish}
             style={formStyle}
           >
-            <Form.Item name="site" label="网址">
+            <Form.Item name="url" label="网址">
               <Input placeholder={'https://www.baidu.com'} allowClear/>
             </Form.Item>
             <Form.Item name="filename" label="文件名">
@@ -79,7 +93,11 @@ const Index = () => {
               </Select>
             </Form.Item>
             <Form.Item {...buttonLayout}>
-              <Button type="primary" htmlType="submit" size={'large'}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                size={'large'}
+              >
                 下载
               </Button>
             </Form.Item>

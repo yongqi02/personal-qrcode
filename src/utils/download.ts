@@ -25,6 +25,6 @@ function autoDownload(filename: string, href: Blob) {
 export function save(filename: string, content: string) {
   const htmlContent = [SVG_Head + content];
   const bl = new Blob(htmlContent, {type: 'image/svg+xml'});
-  filename = '二维码——' + filename + '.svg';
+  filename = filename + '.svg';
   autoDownload(filename, bl);
 }
