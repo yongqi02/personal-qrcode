@@ -1,0 +1,18 @@
+@font-face {
+    font-family: alimama-agile;
+    src: url("./alimama-agile/AlimamaAgileVF-Thin.ttf");
+}
+
+@font-face {
+    font-family: alimama-daoliti;
+    src: url("./alimama-daoliti/AlimamaDaoLiTi.ttf");
+}
+
+/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+@font-face {
+    font-family: canger-yuyang;
+    font-weight: 400;
+    src: url("./TsangerYuYangT/MqfMGiJaavb9/kWEWbhz4B16Y.woff2") format("woff2"),
+            url("./TsangerYuYangT/MqfMGiJaavb9/kWEWbhz4B16Y.woff") format("woff");
+    font-display: swap;
+}

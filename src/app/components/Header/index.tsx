@@ -4,34 +4,91 @@
  * @path src/app/components/Header
  */
 
-import {Col, Layout, Row, Space} from 'antd';
+
+import {Button, Col, Layout, Row, Space} from 'antd';
 import React from 'react';
-import {GithubFilled, QqCircleFilled, TwitterCircleFilled, WechatFilled, ZhihuCircleFilled} from "@ant-design/icons";
-// const url = 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg';
+import styles from './index.module.less';
+import {Github, Gitee, QQ, WeChat, TikTok} from '@/assets/images/logos/index.ts';
+
 
 const headerStyle: React.CSSProperties = {
   height: 64,
   lineHeight: '64px',
   backgroundColor: '#fff',
+  border: '2px solid #EEEFF1',
+  marginBottom: '2'
 };
 
 const Index = () => {
   return (
     <Layout.Header style={headerStyle}>
       <Row>
-        <Col></Col>
-        <Col>
-          <Space size={16} wrap>
-            <GithubFilled />
-            <TwitterCircleFilled />
-            <WechatFilled />
-            <QqCircleFilled />
-            <ZhihuCircleFilled />
-            {/*<Avatar>U</Avatar>*/}
-            {/*<Avatar size={40}>USER</Avatar>*/}
-            {/*<Avatar src={url} />*/}
-            {/*<Avatar src={<img src={url} alt="avatar" />} />*/}
-            {/*<Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>U</Avatar>*/}
+        <Col span={8}>
+          <h1 style={{
+            fontFamily: 'alimama-agile',
+            fontSize: 40
+          }}
+              className={styles.logo}
+          >
+            Personal-Qrcode
+          </h1>
+        </Col>
+        <Col span={10}>
+          <h2 style={{
+            fontFamily: 'alimama-daoliti',
+            fontSize: 12,
+            lineHeight: '80px'
+          }}>
+            @nizhou-studio
+          </h2>
+        </Col>
+        <Col span={6}>
+          <Space size={'large'}>
+            <Button
+              type="primary"
+              icon={<Github />}
+              shape={'circle'}
+              style={{
+                padding: 0,
+                backgroundColor: 'transparent'
+              }}
+            />
+            <Button
+              type="primary"
+              icon={<Gitee />}
+              shape={'circle'}
+              style={{
+                padding: 0,
+                backgroundColor: 'transparent'
+              }}
+            />
+            <Button
+              type="primary"
+              icon={<WeChat />}
+              shape={'circle'}
+              style={{
+                padding: 0,
+                backgroundColor: 'transparent'
+              }}
+            />
+            <Button
+              type="primary"
+              icon={<QQ />}
+              shape={'circle'}
+              style={{
+                padding: 0,
+                backgroundColor: 'transparent'
+              }}
+            />
+            <Button
+              type="primary"
+              icon={<TikTok />}
+              shape={'circle'}
+              style={{
+                padding: 0,
+                backgroundColor: 'transparent'
+              }}
+            />
           </Space>
         </Col>
       </Row>

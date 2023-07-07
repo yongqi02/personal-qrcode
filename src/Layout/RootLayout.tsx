@@ -11,7 +11,7 @@ const Index = (props: {
 }) => {
   return (
     <Layout style={{
-      maxWidth: 1440
+
     }}>
       {props.children}
     </Layout>

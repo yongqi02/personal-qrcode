@@ -4,27 +4,30 @@
  * @path src/app/components/Content
  */
 
-import {Col, Layout} from 'antd';
+
+import { Layout } from 'antd';
 import React from 'react';
-// import { InfoCircleOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Radio, Select } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import { Image } from 'antd';
 import svg from '@/assets/images/default.svg';
 
-// type RequiredMark = boolean | 'optional';
-//
+
 const contentStyle: React.CSSProperties = {
   textAlign: 'center',
   minHeight: 500,
   width: 928,
   color: '#fff',
-
-
-  // backgroundColor: '#108ee9',
 };
-// const tailLayout = {
-//   wrapperCol: { offset: 8, span: 16 },
-// };
+
+const imgStyle: React.CSSProperties = {
+  marginTop: 32
+};
+
+const formStyle: React.CSSProperties = {
+  maxWidth: 400,
+  marginTop: 32
+};
+
 const { Option } = Select;
 
 const layout = {
@@ -32,164 +35,55 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
+const buttonLayout = {
+  wrapperCol: { offset: 2, span: 16 },
 };
 
 const Index = () => {
-  // const [form] = Form.useForm();
-  // const [requiredMark, setRequiredMarkType] = useState<RequiredMark>('optional');
-  //
-  // const onRequiredTypeChange = ({ requiredMarkValue }: { requiredMarkValue: RequiredMark }) => {
-  //   setRequiredMarkType(requiredMarkValue);
-  // };
-  //
-  //
-  // const onReset = () => {
-  //   form.resetFields();
-  // };
-  // return (
-  //   <>
-  //     <Layout.Content style={contentStyle}>
-  //       <Row>
-  //         <Col>
-  //           <Form
-  //             form={form}
-  //             layout="vertical"
-  //             initialValues={{ requiredMarkValue: requiredMark }}
-  //             onValuesChange={onRequiredTypeChange}
-  //             requiredMark={requiredMark}
-  //           >
-  //             <Form.Item label="Required Mark" name="requiredMarkValue">
-  //               <Radio.Group>
-  //                 <Radio.Button value="optional">Optional</Radio.Button>
-  //                 <Radio.Button value>Required</Radio.Button>
-  //                 <Radio.Button value={false}>Hidden</Radio.Button>
-  //               </Radio.Group>
-  //             </Form.Item>
-  //             <Form.Item label="Field A" required tooltip="This is a required field">
-  //               <Input placeholder="input placeholder" />
-  //             </Form.Item>
-  //             <Form.Item
-  //               label="Field B"
-  //               tooltip={{ title: 'Tooltip with customize icon', icon: <InfoCircleOutlined /> }}
-  //             >
-  //               <Input placeholder="input placeholder" />
-  //             </Form.Item>
-  //             <Form.Item>
-  //               <Button type="primary">Submit</Button>
-  //             </Form.Item>
-  //             <Form.Item {...tailLayout}>
-  //               <Button type="primary" htmlType="submit">
-  //                 Submit
-  //               </Button>
-  //               <Button htmlType="button" onClick={onReset}>
-  //                 Reset
-  //               </Button>
-  //             </Form.Item>
-  //           </Form>
-  //         </Col>
-  //         <Col>
-  //           <Image
-  //             width={200}
-  //             src={svg}
-  //           />
-  //         </Col>
-  //       </Row>
-  //     </Layout.Content>
-  //   </>
-  // );
-
 
   const [form] = Form.useForm();
 
-  const onGenderChange = (value: string) => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue({ note: 'Hi, man!' });
-        break;
-      case 'female':
-        form.setFieldsValue({ note: 'Hi, lady!' });
-        break;
-      case 'other':
-        form.setFieldsValue({ note: 'Hi there!' });
-        break;
-      default:
-    }
-  };
-
-  const onFinish = (values: any) => {
+  const onFinish = (values: unknown) => {
     console.log(values);
-  };
-
-  const onReset = () => {
-    form.resetFields();
-  };
-
-  const onFill = () => {
-    form.setFieldsValue({ note: 'Hello world!', gender: 'male' });
   };
 
   return (
     <>
-      <Layout.Sider style={contentStyle} width={400} theme={'light'}>
+      <Layout.Sider style={contentStyle} width={512} theme={'light'}>
         <Image
           width={256}
           src={svg}
+          style={imgStyle}
         />
           <Form
             {...layout}
             form={form}
             name="control-hooks"
             onFinish={onFinish}
-            style={{ maxWidth: 400 }}
+            style={formStyle}
           >
-            <Form.Item name="note" label="Note" rules={[{ required: true }]}>
-              <Input />
+            <Form.Item name="site" label="网址">
+              <Input placeholder={'https://www.baidu.com'} allowClear/>
             </Form.Item>
-            <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
+            <Form.Item name="filename" label="文件名">
+              <Input placeholder={'special-qrcode'} allowClear/>
+            </Form.Item>
+            <Form.Item name="format" label="格式" rules={[{ required: true }]}>
               <Select
-                placeholder="Select a option and change input text above"
-                onChange={onGenderChange}
+                placeholder="请选择下载的文件格式"
                 allowClear
               >
-                <Option value="male">male</Option>
-                <Option value="female">female</Option>
-                <Option value="other">other</Option>
+                <Option value="svg">SVG</Option>
+                <Option value="png">PNG</Option>
+                <Option value="jpg">JPG</Option>
               </Select>
             </Form.Item>
-            <Form.Item
-              noStyle
-              shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
-            >
-              {({ getFieldValue }) =>
-                getFieldValue('gender') === 'other' ? (
-                  <Form.Item name="customizeGender" label="Customize Gender" rules={[{ required: true }]}>
-                    <Input />
-                  </Form.Item>
-                ) : null
-              }
-            </Form.Item>
-            <Form.Item label="Required Mark" name="requiredMarkValue">
-              <Radio.Group>
-                <Radio.Button value="optional">Optional</Radio.Button>
-                <Radio.Button value>Required</Radio.Button>
-                <Radio.Button value={false}>Hidden</Radio.Button>
-              </Radio.Group>
-            </Form.Item>
-            <Form.Item {...tailLayout}>
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-              <Button htmlType="button" onClick={onReset}>
-                Reset
-              </Button>
-              <Button type="link" htmlType="button" onClick={onFill}>
-                Fill form
+            <Form.Item {...buttonLayout}>
+              <Button type="primary" htmlType="submit" size={'large'}>
+                下载
               </Button>
             </Form.Item>
           </Form>
-
       </Layout.Sider>
     </>
   );
