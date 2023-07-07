@@ -5,18 +5,15 @@
  */
 
 
-import { Layout } from 'antd';
 import React from 'react';
-import { Button, Form, Input, Select } from 'antd';
-import { Image } from 'antd';
+import { Button, Form, Input, Select, Image, Layout } from 'antd';
 import svg from '@/assets/images/default.svg';
-import store from '@/store/store.ts';
-import { updateInfo, updateMatrix } from '@/store/action.ts';
-import {getMatrix} from '@/utils/generate.ts';
-import base from '@/render/base.tsx';
-import {save} from '@/utils/download.ts';
-import ReactDOMServer from 'react-dom/server';
 
+import {updateInfo} from '@/api/update';
+import {makeMatrix} from '@/api/make';
+import {downloadSVG} from '@/api/download';
+
+import INFO from '@/constant/INFO.ts';
 
 const contentStyle: React.CSSProperties = {
   textAlign: 'center',
@@ -54,10 +51,9 @@ const Index = () => {
     url: string,
     format: string
   }) => {
-    store.dispatch(updateInfo(values));
-    store.dispatch(updateMatrix(getMatrix(store.getState().info.url)));
-    const el = React.createElement(base, {matrix: store.getState().matrix});
-    save(store.getState().info.filename, ReactDOMServer.renderToString(el));
+    updateInfo(values);
+    makeMatrix();
+    downloadSVG();
   };
 
 
@@ -75,6 +71,7 @@ const Index = () => {
             name="control-hooks"
             onFinish={onFinish}
             style={formStyle}
+            initialValues={INFO}
           >
             <Form.Item name="url" label="网址">
               <Input placeholder={'https://www.baidu.com'} allowClear/>

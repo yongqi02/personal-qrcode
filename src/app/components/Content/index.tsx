@@ -1,17 +1,9 @@
-import { useState } from 'react';
 import { Form, Select, Layout } from 'antd';
 import FloatNav from '@/app/components/FloatNav';
 import {Base} from '@/app/components/Form/';
 
-type SizeType = Parameters<typeof Form>[0]['size'];
 
 const Index = () => {
-  
-  const [componentSize, setComponentSize] = useState<SizeType | 'default'>('default');
-
-  const onFormLayoutChange = ({ size }: { size: SizeType }) => {
-    setComponentSize(size);
-  };
 
   return (
     <Layout.Content style={{
@@ -22,9 +14,10 @@ const Index = () => {
             labelCol={{ span: 4 }}
             wrapperCol={{ span: 14, offset: 1  }}
             layout="horizontal"
-            initialValues={{ size: componentSize }}
-            onValuesChange={onFormLayoutChange}
-            size={componentSize as SizeType}
+            initialValues={{
+
+            }}
+            size={'middle'}
             style={{ maxWidth: 600, marginTop: 32, marginLeft: 128 }}
           >
 

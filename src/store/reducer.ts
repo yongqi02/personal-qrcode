@@ -16,7 +16,7 @@ const counterSlice = createSlice({
       url: 'www.baidu.com',
       format: 'svg'
     },
-    matrix: []
+    matrix: {}
   },
   reducers: {
     updateInfo: (state, action: PayloadAction<{
@@ -29,7 +29,7 @@ const counterSlice = createSlice({
         ...action.payload
       };
     },
-    updateMatrix: (state, action: PayloadAction<any>) => {
+    updateMatrix: (state, action: PayloadAction<object>) => {
       state.matrix = action.payload;
     }
   }
