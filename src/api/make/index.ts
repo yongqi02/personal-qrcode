@@ -6,6 +6,7 @@
 
 
 import makeMatrix from '@/api/make/makeMatrix.ts';
+import makeImg from '@/api/make/makeImg.ts';
 
 
-export {makeMatrix};
+export {makeMatrix, makeImg};

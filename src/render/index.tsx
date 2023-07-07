@@ -6,10 +6,24 @@
 
 
 import {RENDER_TYPE} from '@/constant/TYPE.ts';
+import Base from '@/render/Base.tsx';
 
-const Render = () => {
+const Render = (props: {
+  type: RENDER_TYPE,
+  matrix: any
+}) => {
+
+  function swit() {
+    switch (props.type) {
+      case RENDER_TYPE.Base:
+        return <Base matrix={props.matrix} />
+    }
+  }
+
   return (
-    <h1>render</h1>
+    <>
+      {swit()}
+    </>
   );
 };
 

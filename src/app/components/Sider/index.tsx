@@ -5,15 +5,16 @@
  */
 
 
-import React from 'react';
-import { Button, Form, Input, Select, Image, Layout } from 'antd';
-import svg from '@/assets/images/default.svg';
+import React, {useState} from 'react';
+import {Button, Form, Image, Input, Layout, Select} from 'antd';
 
 import {updateInfo} from '@/api/update';
-import {makeMatrix} from '@/api/make';
+import {makeImg, makeMatrix} from '@/api/make';
 import {downloadSVG} from '@/api/download';
 
 import INFO from '@/constant/INFO.ts';
+import {RENDER_TYPE} from '@/constant/TYPE.ts';
+import store from "@/store/store.ts";
 
 const contentStyle: React.CSSProperties = {
   textAlign: 'center',
@@ -42,9 +43,17 @@ const buttonLayout = {
   wrapperCol: { offset: 2, span: 16 },
 };
 
+makeMatrix();
+
 const Index = () => {
 
   const [form] = Form.useForm();
+  const [img, setImg] = useState(makeImg(RENDER_TYPE.Base));
+
+  store.subscribe(() => {
+    makeMatrix();
+    setImg(makeImg(RENDER_TYPE.Base));
+  });
 
   const onFinish = (values: {
     filename: string,
@@ -53,7 +62,19 @@ const Index = () => {
   }) => {
     updateInfo(values);
     makeMatrix();
-    downloadSVG();
+    downloadSVG(RENDER_TYPE.Base);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const onValuesChange = (_, allValues: {
+    filename: string,
+    url: string,
+    format: string
+  }) => {
+    updateInfo(allValues);
+    makeMatrix();
+    setImg(makeImg(RENDER_TYPE.Base));
   };
 
 
@@ -62,7 +83,7 @@ const Index = () => {
       <Layout.Sider style={contentStyle} width={512} theme={'light'}>
         <Image
           width={256}
-          src={svg}
+          src={img}
           style={imgStyle}
         />
           <Form
@@ -70,11 +91,12 @@ const Index = () => {
             form={form}
             name="control-hooks"
             onFinish={onFinish}
+            onValuesChange={onValuesChange}
             style={formStyle}
             initialValues={INFO}
           >
             <Form.Item name="url" label="网址">
-              <Input placeholder={'https://www.baidu.com'} allowClear/>
+              <Input placeholder={'https://www.baidu.com'} allowClear />
             </Form.Item>
             <Form.Item name="filename" label="文件名">
               <Input placeholder={'special-qrcode'} allowClear/>
