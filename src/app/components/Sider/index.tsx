@@ -1,86 +1,201 @@
 /**
  * @author nizhou-studio
- * @create 2023/7/6 23:18
- * @path src/app/components/Sider
+ * @create 2023/7/6 22:45
+ * @path src/app/components/Content
  */
 
-import React, { useState } from 'react';
-import {
-  AppstoreOutlined,
-  ContainerOutlined,
-  DesktopOutlined,
-  MailOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  PieChartOutlined,
-} from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { Button, Menu, Layout } from 'antd';
+import {Col, Layout} from 'antd';
+import React from 'react';
+// import { InfoCircleOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Radio, Select } from 'antd';
+import { Image } from 'antd';
+import svg from '@/assets/images/default.svg';
 
-type MenuItem = Required<MenuProps>['items'][number];
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  type?: 'group',
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  } as MenuItem;
-}
-const siderStyle: React.CSSProperties = {
+// type RequiredMark = boolean | 'optional';
+//
+const contentStyle: React.CSSProperties = {
   textAlign: 'center',
   minHeight: 500,
+  width: 928,
   color: '#fff',
+
+
   // backgroundColor: '#108ee9',
 };
-const items: MenuItem[] = [
-  getItem('Option 1', '1', <PieChartOutlined />),
-  getItem('Option 2', '2', <DesktopOutlined />),
-  getItem('Option 3', '3', <ContainerOutlined />),
+// const tailLayout = {
+//   wrapperCol: { offset: 8, span: 16 },
+// };
+const { Option } = Select;
 
-  getItem('Navigation One', 'sub1', <MailOutlined />, [
-    getItem('Option 5', '5'),
-    getItem('Option 6', '6'),
-    getItem('Option 7', '7'),
-    getItem('Option 8', '8'),
-  ]),
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+};
 
-  getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-    getItem('Option 9', '9'),
-    getItem('Option 10', '10'),
+const tailLayout = {
+  wrapperCol: { offset: 8, span: 16 },
+};
 
-    getItem('Submenu', 'sub3', null, [getItem('Option 11', '11'), getItem('Option 12', '12')]),
-  ]),
-];
 const Index = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  // const [form] = Form.useForm();
+  // const [requiredMark, setRequiredMarkType] = useState<RequiredMark>('optional');
+  //
+  // const onRequiredTypeChange = ({ requiredMarkValue }: { requiredMarkValue: RequiredMark }) => {
+  //   setRequiredMarkType(requiredMarkValue);
+  // };
+  //
+  //
+  // const onReset = () => {
+  //   form.resetFields();
+  // };
+  // return (
+  //   <>
+  //     <Layout.Content style={contentStyle}>
+  //       <Row>
+  //         <Col>
+  //           <Form
+  //             form={form}
+  //             layout="vertical"
+  //             initialValues={{ requiredMarkValue: requiredMark }}
+  //             onValuesChange={onRequiredTypeChange}
+  //             requiredMark={requiredMark}
+  //           >
+  //             <Form.Item label="Required Mark" name="requiredMarkValue">
+  //               <Radio.Group>
+  //                 <Radio.Button value="optional">Optional</Radio.Button>
+  //                 <Radio.Button value>Required</Radio.Button>
+  //                 <Radio.Button value={false}>Hidden</Radio.Button>
+  //               </Radio.Group>
+  //             </Form.Item>
+  //             <Form.Item label="Field A" required tooltip="This is a required field">
+  //               <Input placeholder="input placeholder" />
+  //             </Form.Item>
+  //             <Form.Item
+  //               label="Field B"
+  //               tooltip={{ title: 'Tooltip with customize icon', icon: <InfoCircleOutlined /> }}
+  //             >
+  //               <Input placeholder="input placeholder" />
+  //             </Form.Item>
+  //             <Form.Item>
+  //               <Button type="primary">Submit</Button>
+  //             </Form.Item>
+  //             <Form.Item {...tailLayout}>
+  //               <Button type="primary" htmlType="submit">
+  //                 Submit
+  //               </Button>
+  //               <Button htmlType="button" onClick={onReset}>
+  //                 Reset
+  //               </Button>
+  //             </Form.Item>
+  //           </Form>
+  //         </Col>
+  //         <Col>
+  //           <Image
+  //             width={200}
+  //             src={svg}
+  //           />
+  //         </Col>
+  //       </Row>
+  //     </Layout.Content>
+  //   </>
+  // );
 
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
+
+  const [form] = Form.useForm();
+
+  const onGenderChange = (value: string) => {
+    switch (value) {
+      case 'male':
+        form.setFieldsValue({ note: 'Hi, man!' });
+        break;
+      case 'female':
+        form.setFieldsValue({ note: 'Hi, lady!' });
+        break;
+      case 'other':
+        form.setFieldsValue({ note: 'Hi there!' });
+        break;
+      default:
+    }
   };
+
+  const onFinish = (values: any) => {
+    console.log(values);
+  };
+
+  const onReset = () => {
+    form.resetFields();
+  };
+
+  const onFill = () => {
+    form.setFieldsValue({ note: 'Hello world!', gender: 'male' });
+  };
+
   return (
-    <Layout.Sider style={siderStyle} width={400}>
-      <div style={{ width: 256 }}>
-        <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
-          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-        </Button>
-        <Menu
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          mode="inline"
-          theme="dark"
-          inlineCollapsed={collapsed}
-          items={items}
+    <>
+      <Layout.Sider style={contentStyle} width={400} theme={'light'}>
+        <Image
+          width={256}
+          src={svg}
         />
-      </div>
-    </Layout.Sider>
+          <Form
+            {...layout}
+            form={form}
+            name="control-hooks"
+            onFinish={onFinish}
+            style={{ maxWidth: 400 }}
+          >
+            <Form.Item name="note" label="Note" rules={[{ required: true }]}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
+              <Select
+                placeholder="Select a option and change input text above"
+                onChange={onGenderChange}
+                allowClear
+              >
+                <Option value="male">male</Option>
+                <Option value="female">female</Option>
+                <Option value="other">other</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item
+              noStyle
+              shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
+            >
+              {({ getFieldValue }) =>
+                getFieldValue('gender') === 'other' ? (
+                  <Form.Item name="customizeGender" label="Customize Gender" rules={[{ required: true }]}>
+                    <Input />
+                  </Form.Item>
+                ) : null
+              }
+            </Form.Item>
+            <Form.Item label="Required Mark" name="requiredMarkValue">
+              <Radio.Group>
+                <Radio.Button value="optional">Optional</Radio.Button>
+                <Radio.Button value>Required</Radio.Button>
+                <Radio.Button value={false}>Hidden</Radio.Button>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item {...tailLayout}>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+              <Button htmlType="button" onClick={onReset}>
+                Reset
+              </Button>
+              <Button type="link" htmlType="button" onClick={onFill}>
+                Fill form
+              </Button>
+            </Form.Item>
+          </Form>
+
+      </Layout.Sider>
+    </>
   );
+
+
+
 };
 
 export default Index;

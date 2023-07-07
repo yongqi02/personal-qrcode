@@ -1,202 +1,200 @@
-/**
- * @author nizhou-studio
- * @create 2023/7/6 22:45
- * @path src/app/components/Content
- */
+import React, { useState } from 'react';
+import {
+  AppstoreOutlined,
+  ContainerOutlined,
+  DesktopOutlined,
+  MailOutlined,
+  PieChartOutlined,
+} from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import {Button, Col, Menu, Row} from 'antd';
+import {Layout} from "antd";
+import {
+  Cascader,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Select,
+  Switch,
+  TreeSelect,
+} from 'antd';
 
-import {Col, Layout} from 'antd';
-import React from 'react';
-// import { InfoCircleOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Radio, Select } from 'antd';
-import { Image } from 'antd';
-import svg from '@/assets/images/default.svg';
+type SizeType = Parameters<typeof Form>[0]['size'];
 
-// type RequiredMark = boolean | 'optional';
-//
-const contentStyle: React.CSSProperties = {
-  textAlign: 'center',
-  minHeight: 500,
-  width: 928,
-  color: '#fff',
-  // backgroundColor: '#108ee9',
-};
-// const tailLayout = {
-//   wrapperCol: { offset: 8, span: 16 },
-// };
-const { Option } = Select;
 
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
 
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
+type MenuItem = Required<MenuProps>['items'][number];
+
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  type?: 'group',
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  } as MenuItem;
+}
+
+const items: MenuItem[] = [
+  getItem('Option 1', '1', <PieChartOutlined />),
+  getItem('Option 2', '2', <DesktopOutlined />),
+  getItem('Option 3', '3', <ContainerOutlined />),
+
+  getItem('Navigation One', 'sub1', <MailOutlined />, [
+    getItem('Option 5', '5'),
+    getItem('Option 6', '6'),
+    getItem('Option 7', '7'),
+    getItem('Option 8', '8'),
+  ]),
+
+  getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
+    getItem('Option 9', '9'),
+    getItem('Option 10', '10'),
+
+    getItem('Submenu', 'sub3', null, [getItem('Option 11', '11'), getItem('Option 12', '12')]),
+  ]),
+];
 
 const Index = () => {
-  // const [form] = Form.useForm();
-  // const [requiredMark, setRequiredMarkType] = useState<RequiredMark>('optional');
-  //
-  // const onRequiredTypeChange = ({ requiredMarkValue }: { requiredMarkValue: RequiredMark }) => {
-  //   setRequiredMarkType(requiredMarkValue);
-  // };
-  //
-  //
-  // const onReset = () => {
-  //   form.resetFields();
-  // };
-  // return (
-  //   <>
-  //     <Layout.Content style={contentStyle}>
-  //       <Row>
-  //         <Col>
-  //           <Form
-  //             form={form}
-  //             layout="vertical"
-  //             initialValues={{ requiredMarkValue: requiredMark }}
-  //             onValuesChange={onRequiredTypeChange}
-  //             requiredMark={requiredMark}
-  //           >
-  //             <Form.Item label="Required Mark" name="requiredMarkValue">
-  //               <Radio.Group>
-  //                 <Radio.Button value="optional">Optional</Radio.Button>
-  //                 <Radio.Button value>Required</Radio.Button>
-  //                 <Radio.Button value={false}>Hidden</Radio.Button>
-  //               </Radio.Group>
-  //             </Form.Item>
-  //             <Form.Item label="Field A" required tooltip="This is a required field">
-  //               <Input placeholder="input placeholder" />
-  //             </Form.Item>
-  //             <Form.Item
-  //               label="Field B"
-  //               tooltip={{ title: 'Tooltip with customize icon', icon: <InfoCircleOutlined /> }}
-  //             >
-  //               <Input placeholder="input placeholder" />
-  //             </Form.Item>
-  //             <Form.Item>
-  //               <Button type="primary">Submit</Button>
-  //             </Form.Item>
-  //             <Form.Item {...tailLayout}>
-  //               <Button type="primary" htmlType="submit">
-  //                 Submit
-  //               </Button>
-  //               <Button htmlType="button" onClick={onReset}>
-  //                 Reset
-  //               </Button>
-  //             </Form.Item>
-  //           </Form>
-  //         </Col>
-  //         <Col>
-  //           <Image
-  //             width={200}
-  //             src={svg}
-  //           />
-  //         </Col>
-  //       </Row>
-  //     </Layout.Content>
-  //   </>
-  // );
+  const [collapsed, setCollapsed] = useState(false);
 
+  const [componentSize, setComponentSize] = useState<SizeType | 'default'>('default');
 
-  const [form] = Form.useForm();
-
-  const onGenderChange = (value: string) => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue({ note: 'Hi, man!' });
-        break;
-      case 'female':
-        form.setFieldsValue({ note: 'Hi, lady!' });
-        break;
-      case 'other':
-        form.setFieldsValue({ note: 'Hi there!' });
-        break;
-      default:
-    }
-  };
-
-  const onFinish = (values: any) => {
-    console.log(values);
-  };
-
-  const onReset = () => {
-    form.resetFields();
-  };
-
-  const onFill = () => {
-    form.setFieldsValue({ note: 'Hello world!', gender: 'male' });
+  const onFormLayoutChange = ({ size }: { size: SizeType }) => {
+    setComponentSize(size);
   };
 
   return (
-    <>
-      <Layout.Content style={contentStyle}>
-        <Col>
+    <Layout.Content style={{
+      maxHeight: 500,
+      overflow: 'scroll'
+    }}>
+        {/*<Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>*/}
+        {/*  {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}*/}
+        {/*</Button>*/}
+
+        {/*<Col>*/}
+        {/*  <Menu*/}
+        {/*    defaultSelectedKeys={['1']}*/}
+        {/*    defaultOpenKeys={['sub1']}*/}
+        {/*    mode="inline"*/}
+        {/*    theme="light"*/}
+        {/*    inlineCollapsed={collapsed}*/}
+        {/*    items={items}*/}
+        {/*  />*/}
+        {/*</Col>*/}
           <Form
-            {...layout}
-            form={form}
-            name="control-hooks"
-            onFinish={onFinish}
+            labelCol={{ span: 4 }}
+            wrapperCol={{ span: 14 }}
+            layout="horizontal"
+            initialValues={{ size: componentSize }}
+            onValuesChange={onFormLayoutChange}
+            size={componentSize as SizeType}
             style={{ maxWidth: 600 }}
           >
-            <Form.Item name="note" label="Note" rules={[{ required: true }]}>
-              <Input />
-            </Form.Item>
-            <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-              <Select
-                placeholder="Select a option and change input text above"
-                onChange={onGenderChange}
-                allowClear
-              >
-                <Option value="male">male</Option>
-                <Option value="female">female</Option>
-                <Option value="other">other</Option>
-              </Select>
-            </Form.Item>
-            <Form.Item
-              noStyle
-              shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
-            >
-              {({ getFieldValue }) =>
-                getFieldValue('gender') === 'other' ? (
-                  <Form.Item name="customizeGender" label="Customize Gender" rules={[{ required: true }]}>
-                    <Input />
-                  </Form.Item>
-                ) : null
-              }
-            </Form.Item>
-            <Form.Item label="Required Mark" name="requiredMarkValue">
+            <Form.Item label="Form Size" name="size">
               <Radio.Group>
-                <Radio.Button value="optional">Optional</Radio.Button>
-                <Radio.Button value>Required</Radio.Button>
-                <Radio.Button value={false}>Hidden</Radio.Button>
+                <Radio.Button value="small">Small</Radio.Button>
+                <Radio.Button value="default">Default</Radio.Button>
+                <Radio.Button value="large">Large</Radio.Button>
               </Radio.Group>
             </Form.Item>
-            <Form.Item {...tailLayout}>
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-              <Button htmlType="button" onClick={onReset}>
-                Reset
-              </Button>
-              <Button type="link" htmlType="button" onClick={onFill}>
-                Fill form
-              </Button>
+            <Form.Item label="Input">
+              <Input />
+            </Form.Item>
+            <Form.Item label="Select">
+              <Select>
+                <Select.Option value="demo">Demo</Select.Option>
+              </Select>
+            </Form.Item>
+            <Form.Item label="TreeSelect">
+              <TreeSelect
+                treeData={[
+                  { title: 'Light', value: 'light', children: [{ title: 'Bamboo', value: 'bamboo' }] },
+                ]}
+              />
+            </Form.Item>
+            <Form.Item label="Cascader">
+              <Cascader
+                options={[
+                  {
+                    value: 'zhejiang',
+                    label: 'Zhejiang',
+                    children: [{ value: 'hangzhou', label: 'Hangzhou' }],
+                  },
+                ]}
+              />
+            </Form.Item>
+            <Form.Item label="DatePicker">
+              <DatePicker />
+            </Form.Item>
+            <Form.Item label="InputNumber">
+              <InputNumber />
+            </Form.Item>
+            <Form.Item label="Switch" valuePropName="checked">
+              <Switch />
+            </Form.Item>
+            <Form.Item label="Button">
+              <Button>Button</Button>
+            </Form.Item>
+            <Form.Item label="Form Size" name="size">
+              <Radio.Group>
+                <Radio.Button value="small">Small</Radio.Button>
+                <Radio.Button value="default">Default</Radio.Button>
+                <Radio.Button value="large">Large</Radio.Button>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item label="Input">
+              <Input />
+            </Form.Item>
+            <Form.Item label="Select">
+              <Select>
+                <Select.Option value="demo">Demo</Select.Option>
+              </Select>
+            </Form.Item>
+            <Form.Item label="TreeSelect">
+              <TreeSelect
+                treeData={[
+                  { title: 'Light', value: 'light', children: [{ title: 'Bamboo', value: 'bamboo' }] },
+                ]}
+              />
+            </Form.Item>
+            <Form.Item label="Cascader">
+              <Cascader
+                options={[
+                  {
+                    value: 'zhejiang',
+                    label: 'Zhejiang',
+                    children: [{ value: 'hangzhou', label: 'Hangzhou' }],
+                  },
+                ]}
+              />
+            </Form.Item>
+            <Form.Item label="DatePicker">
+              <DatePicker />
+            </Form.Item>
+            <Form.Item label="InputNumber">
+              <InputNumber />
+            </Form.Item>
+            <Form.Item label="Switch" valuePropName="checked">
+              <Switch />
+            </Form.Item>
+            <Form.Item label="Button">
+              <Button>Button</Button>
             </Form.Item>
           </Form>
-        </Col>
-        <Col>
-          <Image
-            width={200}
-            src={svg}
-          />
-        </Col>
-      </Layout.Content>
-    </>
+
+
+    </Layout.Content>
   );
-
-
-
 };
 
 export default Index;
