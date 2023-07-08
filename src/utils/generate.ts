@@ -1,8 +1,13 @@
-/**
- * @author nizhou-studio
- * @create 2023/7/5 17:35
- * @path src/utils
+/*
+ * @Author: nizhou-studio
+ * @Date: 2023-07-07 23:46:00
+ * @LastEditTime: 2023-07-08 10:29:50
+ * @LastEditors: heyq
+ * @Description: 生成二维码像素矩阵
+ * @FilePath: \personal-qrcode\src\utils\generate.ts
+ * Copyright © 2018 HYQ. All rights reserved.
  */
+
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
