@@ -5,7 +5,7 @@
  */
 
 
-import {getMatrix} from '@/utils/generate.ts';
+import {getMatrix} from '@/utils/getMatrix.ts';
 import {updateMatrix} from '@/api/update';
 import {getInfo} from '@/api/get';
 

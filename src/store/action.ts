@@ -9,5 +9,6 @@ import counterSlice from '@/store/reducer.ts';
 export const {
   updateInfo,
   updateMatrix,
-  updateImg
+  updateImg,
+  updateOptions
 } = counterSlice.actions;

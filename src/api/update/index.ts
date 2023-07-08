@@ -8,6 +8,7 @@
 import updateInfo from '@/api/update/updateInfo.ts';
 import updateMatrix from '@/api/update/updateMatrix.ts';
 import updateImg from '@/api/update/updateImg.ts';
+import updateOptions from '@/api/update/updateOptions.ts';
 
 
-export {updateInfo, updateMatrix, updateImg};
+export {updateInfo, updateMatrix, updateImg, updateOptions};

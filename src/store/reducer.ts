@@ -17,7 +17,16 @@ const counterSlice = createSlice({
       format: 'svg'
     },
     matrix: {},
-    img: ''
+    img: '',
+    options: {
+      render		: 'canvas',
+      width		: 256,
+      height		: 256,
+      typeNumber	: -1,
+      correctLevel	: 2,
+      background      : '#ffffff',
+      foreground      : '#000000',
+    }
   },
   reducers: {
     updateInfo: (state, action: PayloadAction<{
@@ -35,6 +44,20 @@ const counterSlice = createSlice({
     },
     updateImg: (state, action: PayloadAction<string>) => {
       state.img = action.payload;
+    },
+    updateOptions: (state, action: PayloadAction<{
+      render: string,
+      width: number,
+      height: number,
+      typeNumber: number,
+      correctLevel: number,
+      background: string,
+      foreground: string,
+    }>) => {
+      state.options = {
+        ...state.options,
+        ...action.payload
+      };
     }
   }
 });

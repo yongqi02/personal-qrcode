@@ -7,6 +7,6 @@
 
 import getMatrix from '@/api/get/getMatrix.ts';
 import getInfo from '@/api/get/getInfo.ts';
+import getOptions from '@/api/get/getOptions.ts';
 
-
-export {getMatrix, getInfo};
+export {getMatrix, getInfo, getOptions};
