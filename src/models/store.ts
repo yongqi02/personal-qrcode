@@ -38,7 +38,9 @@ const storeSlice = createSlice({
 });
 
 const store = configureStore({
-	reducer: storeSlice.reducer
+	reducer: storeSlice.reducer,
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({serializableCheck: false})
 });
 
 export const {
