@@ -74,7 +74,7 @@ const Index = () => {
 		a.click();
 	};
 
-	const onOptionsChange = (_, allValues: {
+	const onOptionsChange = (_: any, allValues: {
 		temp: string,
 		size: number,
 		foreColor: string,
