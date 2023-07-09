@@ -6,7 +6,7 @@
  * @organization nizhou-studio
  */
 
-import {Button, Col, Layout, Row, Select, Space, Form, Image, Input} from "antd";
+import {Button, Col, Layout, Row, Select, Space, Form, Image, Input, FloatButton} from "antd";
 import {Github, Gitee, WeChat, QQ, TikTok} from "@/views/assets/icons";
 import React, {useState} from "react";
 import "@/views/assets/fonts/fonts.css";
@@ -14,6 +14,9 @@ import "@/views/assets/styles/common.css";
 import updateMatrix from "@/controller/apis/updateMatrix";
 import Render from "@/views/utils/render.tsx";
 import ReactDOMServer from "react-dom/server";
+import {QuestionCircleOutlined} from "@ant-design/icons";
+import Base from "@/views/components/Base.tsx";
+import updateOptions from "@/controller/apis/updateOptions";
 
 const HEAD_SVG = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n " +
 	"<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 20010904//EN\"" +
@@ -21,7 +24,8 @@ const HEAD_SVG = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n " +
 
 const headerStyle: React.CSSProperties = {
 	height: 64,
-	backgroundColor: "#fff"
+	backgroundColor: "#d9d9d9",
+	borderBottom: "2px solid #bfbfbf",
 };
 
 const contentStyle: React.CSSProperties = {
@@ -70,6 +74,20 @@ const Index = () => {
 		a.click();
 	};
 
+	const onOptionsChange = (_, allValues: {
+		temp: string,
+		size: number,
+		foreColor: string,
+		backColor: string,
+	}) => {
+		updateOptions({
+			size: allValues.size,
+			foreColor: allValues.foreColor,
+			backColor: allValues.backColor
+		});
+		setSrc(createURL());
+	};
+
 	return (
 		<Layout>
 			<Layout.Header style={headerStyle}>
@@ -96,7 +114,43 @@ const Index = () => {
 					</Row>
 			</Layout.Header>
 			<Layout hasSider>
-				<Layout.Content></Layout.Content>
+				<Layout.Content style={{
+					maxHeight: 600,
+					overflow: "scroll",
+				}}>
+					<Form
+						labelCol={{ span: 4 }}
+						wrapperCol={{ span: 14, offset: 1  }}
+						layout="horizontal"
+						initialValues={{
+							temp: "base",
+							size: 256,
+							foreColor: "#000",
+							backColor: "#fff",
+						}}
+						onValuesChange={onOptionsChange}
+						size={"middle"}
+						style={{ maxWidth: 600, marginTop: 32, marginLeft: 128 }}
+					>
+
+						<Form.Item label="选择模板" name={"temp"}>
+							<Select defaultValue={"base"}>
+								<Select.Option value="base">基础</Select.Option>
+								<Select.Option value="bubble">泡泡</Select.Option>
+							</Select>
+						</Form.Item>
+
+						<Base />
+
+					</Form>
+
+					<FloatButton.Group shape="circle" style={{ right: 24 }}>
+						<FloatButton icon={<QuestionCircleOutlined />} />
+						<FloatButton />
+						<FloatButton.BackTop visibilityHeight={0} />
+					</FloatButton.Group>
+
+				</Layout.Content>
 				<Layout.Sider style={contentStyle} width={512} theme={"light"}>
 					<Image width={256} src={src} style={{
 						marginTop: 32

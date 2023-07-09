@@ -21,8 +21,11 @@ function listPoint(matrix: Matrix): Array<JSX.Element> {
 	let id = 0;
 	for (let row = 0; row < nCount; row++) {
 		for (let col = 0; col < nCount; col++) {
-			if (matrix.isDark(row, col))
-				pointList.push(<use key={id++} fill="green" x={row} y={col} href="#simpleRect"/>);
+			if (matrix.isDark(row, col)) {
+				pointList.push(<use key={id++} fill={"black"} x={row} y={col} href="#fore"/>);
+			} else {
+				pointList.push(<use key={id++} fill={"black"} x={row} y={col} href="#back"/>);
+			}
 		}
 	}
 	return pointList;
@@ -40,10 +43,12 @@ function calViewBox(matrix: Matrix) {
 const Index = () => {
 
 	const [matrix, setMatrix] = useState<Matrix>(getMatrix());
-	const [options] = useState<Options>(getOptions());
+	const [options, setOptions] = useState<Options>(getOptions());
 
 	store.subscribe(() => {
 		setMatrix(getMatrix());
+		console.log("二维码更新成功");
+		setOptions(getOptions());
 	});
 
 	return (
@@ -55,8 +60,8 @@ const Index = () => {
 			fill="white"
 			xmlns="http://www.w3.org/2000/svg"
 			xmlnsXlink="http://www.w3.org/1999/xlink">
-				<rect fill={options.foreColor} width={1} height={1} id="simpleRect"/>
-				{/*<circle fill="green" r={0.5} id="simpleCircle"/>*/}
+				<rect fill={options.foreColor} width={1} height={1} id="fore"/>
+				<rect fill={options.backColor} width={1} height={1} id="back"/>
 				{listPoint(matrix)}
 		</svg>
 	);
