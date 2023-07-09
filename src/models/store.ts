@@ -7,32 +7,30 @@
  */
 
 import { configureStore, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import Matrix from "@/controller/libs/types/Matrix.ts";
+import Options from "@/controller/libs/types/Options.ts";
 
 const storeSlice = createSlice({
 	name: "store",
 	initialState: {
-		// info: {
-		// 	filename: "personal-qrcode",
-		// 	url: "www.baidu.com",
-		// 	format: "svg"
-		// },
 		matrix: {},
-		// img: ""
+		options: {
+			size: 256,
+			foreColor: "#000",
+			backColor: "#fff",
+		}
 	},
 	reducers: {
-		// updateInfo: (state, action: PayloadAction<{
-		// 	filename: string,
-		// 	url: string,
-		// 	format: string
-		// }>) => {
-		// 	state.info = {
-		// 		...state.info,
-		// 		...action.payload
-		// 	};
-		// }
-		updateMatrix: (state, action: PayloadAction<object>) => {
+		updateMatrix: (state, action: PayloadAction<Matrix>) => {
 			console.log("已成功更新矩阵");
 			state.matrix = action.payload;
+		},
+		updateOptions: (state, action: PayloadAction<Options>) => {
+			console.log("已成功更新图像");
+			state.options = {
+				...state.options,
+				...action.payload
+			};
 		}
 	}
 });
@@ -44,7 +42,8 @@ const store = configureStore({
 });
 
 export const {
-	updateMatrix
+	updateMatrix,
+	updateOptions
 } = storeSlice.actions;
 
 export default store;

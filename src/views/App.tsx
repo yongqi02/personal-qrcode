@@ -35,15 +35,15 @@ updateMatrix({});
 
 const Index = () => {
 
-	const [form] = Form.useForm();
-	const [src, setSrc] = useState("/百度.svg");
-
 	const createURL = () => {
 		const content = ReactDOMServer.renderToString(React.createElement(Render));
 		const htmlContent = [HEAD_SVG + content];
 		const bl = new Blob(htmlContent, {type: "image/svg+xml"});
 		return URL.createObjectURL(bl);
 	};
+
+	const [form] = Form.useForm();
+	const [src, setSrc] = useState(createURL());
 
 	const onValuesChange = (_: unknown, allValues: {
 		url: string,

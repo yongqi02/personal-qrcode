@@ -6,8 +6,11 @@
  * @organization nizhou-studio
  */
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import QRCode from "@/controller/libs/qrcode.js";
 import store, {updateMatrix} from "@/models/store.ts";
+import Matrix from "@/controller/libs/types/Matrix.ts";
 
 interface Options {
   render?: string,
@@ -23,18 +26,13 @@ interface Options {
 export default function f(payload: Options) {
 
   const options: Options = {
-    render: "canvas",
-    width: 256,
-    height: 256,
     typeNumber: -1,
     correctLevel: 2,
-    backColor: "#ffffff",
-    foreColor: "#000000",
     url: "www.baidu.com",
     ...payload
   };
 
-  const matrix: object = new QRCode(options.typeNumber, options.correctLevel);
+  const matrix: Matrix = new QRCode(options.typeNumber, options.correctLevel);
 
   matrix.addData(options.url);
   matrix.make();

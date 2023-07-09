@@ -7,7 +7,8 @@
  */
 
 import store from "@/models/store.ts";
+import Matrix from "@/controller/libs/types/Matrix.ts";
 
-export default function f() {
-  return store.getState().matrix;
+export default function f(): Matrix {
+  return store.getState().matrix as Matrix;
 }
