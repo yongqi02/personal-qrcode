@@ -13,6 +13,7 @@
 //   http://www.denso-wave.com/qrcode/faqpatent-e.html
 //
 //---------------------------------------------------------------------
+// noinspection EqualityComparisonWithCoercionJS,PointlessArithmeticExpressionJS,JSUnresolvedReference,RedundantIfStatementJS,UnnecessaryLocalVariableJS,JSUnusedLocalSymbols,JSUnusedAssignment
 
 //---------------------------------------------------------------------
 // QR8bitByte
@@ -138,6 +139,7 @@ QRCode.prototype = {
 
 				if (col + c <= -1 || this.moduleCount <= col + c) continue;
 
+				// noinspection RedundantIfStatementJS
 				if ( (0 <= r && r <= 6 && (c == 0 || c == 6) )
 						|| (0 <= c && c <= 6 && (r == 0 || r == 6) )
 						|| (2 <= r && r <= 4 && 2 <= c && c <= 4) ) {
@@ -235,6 +237,7 @@ QRCode.prototype = {
 
 					for (let c = -2; c <= 2; c++) {
 
+						// noinspection RedundantIfStatementJS
 						if (r == -2 || r == 2 || c == -2 || c == 2
 								|| (r == 0 && c == 0) ) {
 							this.modules[row + r][col + c] = true;

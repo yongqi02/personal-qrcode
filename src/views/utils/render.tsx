@@ -13,8 +13,6 @@ import getOptions from "@/controller/apis/getOptions";
 import Matrix from "@/controller/libs/types/Matrix.ts";
 import Options from "@/controller/libs/types/Options.ts";
 
-import bgi from "/bgi.jpg";
-
 function listPoint(matrix: Matrix): Array<JSX.Element> {
 	if (!matrix) return [];
 
@@ -31,16 +29,6 @@ function listPoint(matrix: Matrix): Array<JSX.Element> {
 		}
 	}
 	return pointList;
-}
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-function calViewBox(matrix: Matrix) {
-	if (!matrix) return "0 0 0 0";
-
-	const nCount = matrix.getModuleCount();
-	return nCount;
-	return "0 0 " + String(nCount) + " " + String(nCount);
 }
 
 const Index = () => {
